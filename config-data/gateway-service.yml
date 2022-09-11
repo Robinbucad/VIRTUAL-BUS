@@ -21,4 +21,4 @@ spring:
         - id: backweb-service
           uri: lb://backweb-service
           predicates:
-            - Path=/api/**
+            - Path=/api/v0/reservas/**

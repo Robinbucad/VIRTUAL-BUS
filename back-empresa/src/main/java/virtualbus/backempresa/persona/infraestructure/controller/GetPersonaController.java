@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 import virtualbus.backempresa.persona.application.PersonaService;
 import virtualbus.backempresa.persona.infraestructure.controller.output.PersonaOutputDTO;
 
-@RequestMapping("/api/v0")
+@RequestMapping("/api/v0/personas")
 @RestController
 public class GetPersonaController {
 
     @Autowired
     PersonaService personaService;
 
-    @GetMapping("/personas/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<PersonaOutputDTO> getPersonaById(@PathVariable Long id){
         PersonaOutputDTO personaOutputDTO = personaService.getPersonaById(id);
         return ResponseEntity.ok(personaOutputDTO);

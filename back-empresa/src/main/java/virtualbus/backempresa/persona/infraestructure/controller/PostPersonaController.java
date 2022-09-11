@@ -10,14 +10,14 @@ import virtualbus.backempresa.persona.application.PersonaService;
 import virtualbus.backempresa.persona.infraestructure.controller.input.PersonaInputDTO;
 import virtualbus.backempresa.persona.infraestructure.controller.output.PersonaOutputDTO;
 
-@RequestMapping("/api/v0")
+@RequestMapping("/api/v0/personas")
 @RestController
 public class PostPersonaController {
 
     @Autowired
     PersonaService personaService;
 
-    @PostMapping("/personas")
+    @PostMapping
     public ResponseEntity<PersonaOutputDTO> createPersona(@RequestBody PersonaInputDTO personaInputDTO){
         PersonaOutputDTO personaOutputDTO = personaService.createPersona(personaInputDTO);
         return ResponseEntity.ok(personaOutputDTO);
