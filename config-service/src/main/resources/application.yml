@@ -6,7 +6,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/Robinbucad/FINAL.git
+          uri: https://github.com/Robinbucad/VIRTUAL-BUS.git
           searchPaths: config-data
           username: ${GIT_USER}
           password: ${GIT_PASSWORD}
