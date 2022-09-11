@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @SpringBootApplication
 @EnableFeignClients
 @EnableEurekaClient
-@EnableHystrix
+
 public class BackEmpresaApplication {
 	@Bean
 	PasswordEncoder passwordEncoder(){
