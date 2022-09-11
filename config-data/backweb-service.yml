@@ -29,6 +29,6 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:9292/eureka/
 
-Feign:
-    hystrix:
+feign:
+    circuitbreaker:
         enabled: true
