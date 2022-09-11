@@ -1,0 +1,27 @@
+server:
+  port: 8080
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8099/eureka/
+  instance:
+    prefer-ip-address: true
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: empresa-service
+          uri: lb://backempresa-service
+          predicates:
+            - Path=/api/**
+        - id: web-service
+          uri: lb://backweb-service
+          predicates:
+            - Path=/api/**
+            
