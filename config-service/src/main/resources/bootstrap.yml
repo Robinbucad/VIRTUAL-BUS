@@ -7,6 +7,8 @@ spring:
       server:
         git:
           uri: https://github.com/Robinbucad/VIRTUAL-BUS.git
+          default-label: master
+          clone-on-start: true
           searchPaths: config-data
           username: ${GIT_USER}
           password: ${GIT_PASSWORD}

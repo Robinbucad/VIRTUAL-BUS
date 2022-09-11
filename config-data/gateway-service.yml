@@ -28,3 +28,7 @@ spring:
           uri: lb://email-service
           predicates:
             - Path=/api/**
+        - id: gateway-service
+          uri: lb://gateway-service
+          predicates:
+            Path=/**
