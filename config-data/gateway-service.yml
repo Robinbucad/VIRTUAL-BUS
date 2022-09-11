@@ -6,9 +6,7 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:9292/eureka/
-  instance:
-    prefer-ip-address: true
-
+  
 spring:
   cloud:
     gateway:
@@ -16,11 +14,11 @@ spring:
         locator:
           enabled: true
       routes:
-        - id: empresa-service
+        - id: backempresa-service
           uri: lb://backempresa-service
           predicates:
             - Path=/api/**
-        - id: web-service
+        - id: backweb-service
           uri: lb://backweb-service
           predicates:
             - Path=/api/**
