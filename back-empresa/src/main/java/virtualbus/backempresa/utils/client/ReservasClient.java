@@ -11,7 +11,7 @@ import virtualbus.backweb.reserva.infraestructure.controller.dto.output.ReservaO
 
 import java.util.List;
 
-@FeignClient(value = "service-reservas", url ="http://localhost:8080/api/v0")
+@FeignClient(value = "service-reservas", url ="http://localhost:8084/api/v0")
 public interface ReservasClient {
 
     @PostMapping("/reservasDisponibles")
