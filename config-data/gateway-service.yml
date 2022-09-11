@@ -14,15 +14,15 @@ spring:
         locator:
           enabled: true
       routes:
-        - id: backempresa-service
-          uri: lb://backempresa-service
+        - id: BACKEMPRESA-SERVICE
+          uri: lb://BACKEMPRESA-SERVICE
           predicates:
             - Path=/api/v0/**
-        - id: backweb-service
-          uri: lb://backweb-service
+        - id: BACKWEB-SERVICE
+          uri: lb://BACKWEB-SERVICE
           predicates:
             - Path=/api/v0/reservas/**
-        - id: email-service
-          uri: lb://email-service
+        - id: EMAIL-SERVICE
+          uri: lb://EMAIL-SERVICE
           predicates:
             - Path=/api/v0/emails/**
