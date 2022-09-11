@@ -30,5 +30,5 @@ eureka:
       defaultZone: http://localhost:9292/eureka/
 
 feign:
-    hystrix:
+    circuitbreaker:
         enabled: true
