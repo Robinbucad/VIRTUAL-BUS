@@ -24,3 +24,7 @@ spring:
     output:
         ansi:
             enabled: always
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9292/eureka/
