@@ -5,18 +5,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
-import virtualbus.backweb.reserva.domain.ReservaEntity;
 import virtualbus.backweb.reserva.domain.ReservaStatus;
-import virtualbus.backweb.reserva.infraestructure.controller.dto.input.ReservaInputDTO;
 import virtualbus.backweb.reserva.infraestructure.controller.dto.output.ReservaOutputDTO;
 import virtualbus.emailservice.email.application.EmailService;
 import virtualbus.emailservice.email.domain.EmailEntity;
 import virtualbus.emailservice.email.infraestructure.repository.EmailRepository;
 
 @Service
-public class ReservaConsumer {
+public class EmailsConsumer {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ReservaConsumer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmailsConsumer.class);
 
     @Autowired
     EmailService emailService;
@@ -25,29 +23,15 @@ public class ReservaConsumer {
     EmailRepository emailRepository;
 
     @KafkaListener(
-            topics = "reservas_topic",
+            topics = "emails",
             groupId = "${spring.kafka.consumer.group.id}"
     )
-    public void consume(ReservaOutputDTO reserva){
+    public void consume(String to){
 
-        System.out.println(reserva.getReservaStatus().toString());
+        EmailEntity email = emailRepository.findEmailByEmail(to).orElse(null);
+        emailService.send(to,buildEmail(email.getNombre(), "El estado de su reserva se encuentra en el estado: "+ email.getReservaStatus()));
 
-        switch (reserva.getReservaStatus().toString()){
-            case "PENDIENTE":
-                emailService.send(reserva.getCorreoElectronico(),buildEmail(reserva.getNombre(), "Reserva realizada correctamente"));
-                reserva.setReservaStatus(ReservaStatus.ACEPTADO);
-                emailRepository.save(new EmailEntity(reserva));
-                break;
-            case "CANCELADO":
-                EmailEntity reservaCancelada = new EmailEntity(reserva);
-                reservaCancelada.setReservaStatus(virtualbus.emailservice.email.domain.ReservaStatus.CANCELADO);
-                emailService.send(reserva.getCorreoElectronico(),buildEmail(reserva.getNombre(), "Reserva cancelada correctamente"));
-                emailRepository.save(reservaCancelada);
-                break;
-        }
-        LOGGER.info(String.format("Order event received in email service => %s", reserva.toString()));
-
-
+        LOGGER.info(String.format("Order event received in email service => %s", to));
 
     }
 

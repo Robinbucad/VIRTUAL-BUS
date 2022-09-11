@@ -13,6 +13,8 @@ import virtualbus.backempresa.persona.domain.PersonaRoles;
 import virtualbus.backempresa.persona.infraestructure.controller.input.PersonaInputDTO;
 import virtualbus.backempresa.persona.infraestructure.controller.output.PersonaOutputDTO;
 import virtualbus.backempresa.persona.infraestructure.repository.PersonaRepository;
+import virtualbus.backweb.exception.unprocessable.UnprocessableException;
+import virtualbus.backweb.reserva.domain.ReservaEntity;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,6 +30,9 @@ public class PersonaServiceImpl implements PersonaService, UserDetailsService {
 
     @Override
     public PersonaOutputDTO createPersona(PersonaInputDTO personaInputDTO) {
+        PersonaEntity checkPersona = personaRepository.findByEmail(personaInputDTO.getEmail()).orElse(null);
+        if (checkPersona != null) throw new UnprocessableException("Esta persona ya esta registrada");
+
         PersonaEntity persona = new PersonaEntity(personaInputDTO);
         persona.setPassword(passwordEncoder.encode(personaInputDTO.getPassword()));
         personaRepository.save(persona);

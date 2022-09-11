@@ -66,6 +66,8 @@ public class ReservaServiceImpl implements ReservaService{
 
     @Override
     public String postReserva(ReservaInputDTO reservaInputDTO, String idBus) {
+        ReservaEntity checkReserva = reservasRepository.findBycorreoElectronico(reservaInputDTO.getCorreoElectronico()).orElse(null);
+        if (checkReserva != null) throw new UnprocessableException("El usuario ya ha realizado una reserva");
         reservaInputDTO.setReservaId(UUID.randomUUID().toString());
         BusEntity bus = busRepository.findBusByIdBus(idBus).orElseThrow(
                 ()-> new NotFoundException("Bus no existe")
@@ -107,6 +109,28 @@ public class ReservaServiceImpl implements ReservaService{
         }
 
         return reservaOutputDTOS;
+    }
+
+    @Override
+    public String cancelReserva(String id_reserva) {
+        ReservaEntity reserva = reservasRepository.findById(id_reserva).orElseThrow(
+                () -> new NotFoundException("Reserva no existe")
+        );
+        BusEntity bus = busRepository.findById(reserva.getIdBus()).orElseThrow(
+                ()-> new NotFoundException("Bus no existe")
+        );
+        ReservaDisponibleEntity reservaDisponible = reservasDisponiblesRepository.findReservaDisponibleByIdBus(bus.getIdBus()).orElseThrow(
+                () -> new NotFoundException("ReservaDisponible no existente")
+        );
+        reserva.setStatus(ReservaStatus.CANCELADO);
+        reservaProducer.sendMessage(new ReservaOutputDTO(reserva,bus));
+        bus.setPlazas(bus.getPlazas()+1);
+        reservaDisponible.setNumeroPlazas(bus.getPlazas()+1);
+        reservasRepository.delete(reserva);
+        reservasDisponiblesRepository.save(reservaDisponible);
+
+
+        return "Su reserva se ha cancelado";
     }
 
 

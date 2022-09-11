@@ -13,7 +13,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v0/checkSecurity")
 public class SecurityController {
-
     @Autowired
     SecurityService securityService;
 
@@ -32,5 +31,9 @@ public class SecurityController {
         return securityService.getReservasRealizadas(id);
     }
 
+    @PostMapping("/emails/{to}")
+    public String resendEmail(@PathVariable String to){
+        return securityService.resendEmail(to);
+    }
 
 }

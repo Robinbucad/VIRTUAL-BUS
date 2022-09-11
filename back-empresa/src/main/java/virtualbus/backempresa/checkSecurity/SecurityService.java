@@ -13,7 +13,7 @@ public interface SecurityService {
 
     List<Email> getEmails();
 
-    Email resend(Long id);
+    String resendEmail(String to);
 
     String checkToken(String token);
 

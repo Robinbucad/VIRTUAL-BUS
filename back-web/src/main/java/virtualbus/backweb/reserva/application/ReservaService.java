@@ -15,5 +15,6 @@ public interface ReservaService {
 
     List<ReservaOutputDTO> getReservasList(String id_bus);
 
+    String cancelReserva(String id_reserva);
 
 }

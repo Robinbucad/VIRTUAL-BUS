@@ -8,6 +8,7 @@ import java.util.Optional;
 public interface BusRepository extends JpaRepository<BusEntity,String> {
    Optional<BusEntity> findBusByIdBus(String idBus);
 
-   Optional<BusEntity> findBusByFecha(String dia);
+   Optional<BusEntity> findBusByHora(int hora);
+
 
 }

@@ -6,6 +6,7 @@ import virtualbus.backweb.bus.domain.BusEntity;
 @Data
 public class BusOutputDTO {
     private String idBus;
+    private String ciudadSalida;
     private String ciudadDestino;
     private String fecha;
     private int hora;

@@ -7,6 +7,7 @@ import virtualbus.backweb.bus.infraestructure.controller.dto.input.BusInputDTO;
 import virtualbus.backweb.bus.infraestructure.controller.dto.output.BusOutputDTO;
 import virtualbus.backweb.bus.infraestructure.repository.BusRepository;
 import virtualbus.backweb.exception.notFound.NotFoundException;
+import virtualbus.backweb.exception.unprocessable.UnprocessableException;
 
 import java.util.UUID;
 
@@ -18,6 +19,11 @@ public class BusServiceImpl implements BusService{
 
     @Override
     public BusOutputDTO createBus(BusInputDTO bus) {
+        BusEntity checkBus = busRepository.findBusByHora(bus.getHora()).orElse(null);
+        if (checkBus != null && checkBus.getCiudadDestino().equalsIgnoreCase(bus.getCiudadDestino())) {
+            throw new UnprocessableException("No se puede crear otro bus que salga a la misma hora y tenga el mismo destino");
+        };
+
         BusEntity newBus = new BusEntity(bus);
 
         busRepository.save(newBus);
