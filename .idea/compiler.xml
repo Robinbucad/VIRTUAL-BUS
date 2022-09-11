@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="config-service" />
+        <module name="back-web" />
+        <module name="back-empresa" />
+        <module name="email-service" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="back-empresa" target="17" />
+      <module name="back-web" target="17" />
+      <module name="config-service" target="17" />
+      <module name="domains-service" target="17" />
+      <module name="email-service" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="back-empresa" options="-parameters" />
+      <module name="back-web" options="-parameters" />
+      <module name="config-service" options="-parameters" />
+      <module name="domains-service" options="-parameters" />
+      <module name="email-service" options="-parameters" />
+    </option>
+  </component>
+</project>

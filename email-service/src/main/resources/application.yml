@@ -1,0 +1,53 @@
+server:
+    port: 8081
+spring:
+    datasource:
+        driver-class-name: org.h2.Driver
+        password: ''
+        url: jdbc:h2:file:~/emails
+        username: robin
+    h2:
+        console:
+            enabled: true
+            path: /h2-console
+            settings:
+                web-allow-others: true
+    jpa:
+        hibernate:
+            ddl-auto: create-drop
+    kafka:
+        consumer:
+            auto-offset-reset: earliest
+            bootstrap-server: localhost:9092
+            group:
+                id: email
+            key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+            properties:
+                spring:
+                    json:
+                        trusted:
+                            packages: '*'
+            value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+        topic:
+            name: reservas_topic
+spring.mail:
+    port: 587
+    host: smtp.gmail.com
+    username: robin.bucad6@gmail.com
+    password: ${EMAIL_PASSWORD}
+    test-connection: false
+    default-encoding: UTF-8
+    properties:
+        mail:
+            debug: false
+            smtp:
+                timeout: 5000
+                ssl:
+                    enable: false
+                socketFactory:
+                    port:
+                    class:
+                auth: true
+                starttls:
+                    enable: true
+                    required: true

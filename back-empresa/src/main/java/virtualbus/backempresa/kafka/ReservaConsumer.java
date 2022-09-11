@@ -1,0 +1,34 @@
+package virtualbus.backempresa.kafka;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.stereotype.Service;
+import virtualbus.backempresa.bus.application.BusService;
+import virtualbus.backempresa.bus.domain.BusEntity;
+import virtualbus.backempresa.bus.infraestructure.repository.BusRepository;
+import virtualbus.backweb.reserva.infraestructure.controller.dto.output.ReservaOutputDTO;
+
+@Service
+public class ReservaConsumer {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ReservaConsumer.class);
+
+    @Autowired
+    BusRepository busRepository;
+
+    @Autowired
+    BusService busService;
+
+    @KafkaListener(
+            topics = "${spring.kafka.topic.name}",
+            groupId = "${spring.kafka.consumer.group.id}"
+    )
+    public void consume(ReservaOutputDTO reserva){
+        BusEntity bus = busRepository.findBusByIdBus(reserva.getIdBus());
+        bus.setPlazas(bus.getPlazas()-1);
+        busService.checkPlazas(bus.getIdBus());
+        busRepository.save(bus);
+        LOGGER.info(String.format("Order event received in empresa service => %s", reserva.toString()));
+    }
+}

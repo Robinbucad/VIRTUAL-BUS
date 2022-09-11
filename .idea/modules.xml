@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/CloudProject.iml" filepath="$PROJECT_DIR$/.idea/CloudProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/back-empresa/back-empresa.iml" filepath="$PROJECT_DIR$/back-empresa/back-empresa.iml" />
+      <module fileurl="file://$PROJECT_DIR$/back-web/back-web.iml" filepath="$PROJECT_DIR$/back-web/back-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/config-service/config-service.iml" filepath="$PROJECT_DIR$/config-service/config-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/email-service/email-service.iml" filepath="$PROJECT_DIR$/email-service/email-service.iml" />
+    </modules>
+  </component>
+</project>
