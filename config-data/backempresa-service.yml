@@ -32,3 +32,8 @@ spring:
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
     topic:
       name: reservas_topic
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9292/eureka/
