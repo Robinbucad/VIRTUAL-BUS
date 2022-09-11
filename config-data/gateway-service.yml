@@ -15,7 +15,10 @@ spring:
           enabled: true
       routes:
         - id: backempresa-service
-          uri: lb://backempresa-service, lb://backweb-service
+          uri: lb://backempresa-service
+          predicates:
+            - Path=/api/v0/**
+        - id: backweb-service
+          uri: lb://backweb-service
           predicates:
             - Path=/api/**
-        
