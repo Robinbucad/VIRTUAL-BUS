@@ -5,10 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import virtualbus.backweb.bus.domain.BusEntity;
 import virtualbus.backweb.bus.infraestructure.repository.BusRepository;
+import virtualbus.backweb.client.ReservasRealizadasClient;
 import virtualbus.backweb.exception.notFound.NotFoundException;
 import virtualbus.backweb.exception.unprocessable.UnprocessableException;
 import virtualbus.backweb.kafka.ReservaProducer;
 import virtualbus.backweb.reserva.domain.ReservaEntity;
+import virtualbus.backweb.reserva.domain.ReservaStatus;
 import virtualbus.backweb.reserva.infraestructure.controller.dto.input.ReservaInputDTO;
 import virtualbus.backweb.reserva.infraestructure.controller.dto.output.ReservaDisponibleOutputDTO;
 import virtualbus.backweb.reserva.infraestructure.controller.dto.output.ReservaOutputDTO;
@@ -34,8 +36,32 @@ public class ReservaServiceImpl implements ReservaService{
     @Autowired
     ReservasDisponiblesRepository reservasDisponiblesRepository;
 
+    @Autowired
+    ReservasRealizadasClient reservasRealizadasClient;
+
     public ReservaServiceImpl(ReservaProducer reservaProducer) {
         this.reservaProducer = reservaProducer;
+    }
+
+    @Override
+    public List<ReservaOutputDTO> getAllReservas(String token) {
+
+        String checkToken = reservasRealizadasClient.checkToken(token).getBody();
+        if (checkToken.equals("Token válido")){
+            List<ReservaEntity> reservaEntities = reservasRepository.findAll();
+            List<ReservaOutputDTO> reservasDTO = new ArrayList<>();
+
+            for (ReservaEntity r:reservaEntities){
+                ReservaOutputDTO reservaOutputDTO = new ReservaOutputDTO(r);
+                reservasDTO.add(reservaOutputDTO);
+            }
+            return reservasDTO;
+        }
+        else {
+            throw new NotFoundException("Token inválido");
+        }
+
+
     }
 
     @Override
@@ -59,7 +85,7 @@ public class ReservaServiceImpl implements ReservaService{
 
         ReservaEntity reserva = new ReservaEntity(reservaInputDTO,bus);
         reservaProducer.sendMessage(new ReservaOutputDTO(reserva,bus));
-
+        reserva.setStatus(ReservaStatus.ACEPTADO);
         reservasRepository.save(reserva);
         reservasDisponiblesRepository.save(reservaDisponible);
         return "Gracias por la reserva";

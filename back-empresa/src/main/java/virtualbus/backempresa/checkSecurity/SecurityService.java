@@ -15,4 +15,6 @@ public interface SecurityService {
 
     Email resend(Long id);
 
+    String checkToken(String token);
+
 }

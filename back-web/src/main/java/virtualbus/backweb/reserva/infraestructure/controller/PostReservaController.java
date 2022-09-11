@@ -18,8 +18,7 @@ public class PostReservaController {
     @PostMapping("/reservas")
     public ResponseEntity<String> postReserva(
             @RequestBody ReservaInputDTO reserva,
-            @RequestParam(value = "id_bus") String idBus,
-            @RequestParam(value = "type", required = false, defaultValue = "reservas") String type
+            @RequestParam(value = "id_bus") String idBus
     ){
         String reservaOutputDTO = reservaService.postReserva(reserva,idBus);
         return ResponseEntity.ok(reservaOutputDTO);

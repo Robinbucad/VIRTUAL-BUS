@@ -37,5 +37,18 @@ public class ReservaOutputDTO {
         setReservaStatus(reserva.getStatus());
     }
 
+    public ReservaOutputDTO(ReservaEntity reserva){
+        setReservaId(reserva.getReservaId());
+        setCiudadDestino(reserva.getCiudadDestino());
+        setNombre(reserva.getNombre());
+        setApellidos(reserva.getApellidos());
+        setTelefono(reserva.getTelefono());
+        setCorreoElectronico(reserva.getCorreoElectronico());
+        setFecha(reserva.getFecha());
+        setHora(reserva.getHora());
+        setIdBus(reserva.getIdBus());
+        setReservaStatus(reserva.getStatus());
+    }
+
     public ReservaOutputDTO(){}
 }

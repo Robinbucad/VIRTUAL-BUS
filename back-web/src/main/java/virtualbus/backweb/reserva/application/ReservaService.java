@@ -8,6 +8,9 @@ import java.util.List;
 
 public interface ReservaService {
 
+
+    List<ReservaOutputDTO> getAllReservas(String token);
+
     String postReserva(ReservaInputDTO reservaInputDTO, String idBus);
 
     List<ReservaOutputDTO> getReservasList(String id_bus);

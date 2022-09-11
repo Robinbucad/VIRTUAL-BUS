@@ -22,9 +22,20 @@ public class ReservaDisponibleServiceImpl implements ReservaDisponibleService{
     @Autowired
     BusRepository busRepository;
 
+
     @Override
-    public ReservaDisponibleOutputDTO getReservaDisponible(String destino, String dia, int hora) {
-        return null;
+    public String plazasDisponiblesBus(String id_bus,String destino, String dia, int hora) {
+        BusEntity bus = busRepository.findById(id_bus).orElseThrow(
+                ()-> new NotFoundException("Bus no existe")
+        );
+
+        if (bus.getCiudadDestino().equals(destino) && bus.getFecha().equals(dia) && bus.getHora() == hora){
+            return "El bus dirección " + bus.getCiudadDestino() + " para el dia " + bus.getFecha() + " y hora "
+                    + bus.getHora() + " tiene disponible " +  bus.getPlazas() +" plazas";
+
+        }else {
+            throw new NotFoundException("Bus en concreto no existe");
+        }
     }
 
     @Override

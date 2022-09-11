@@ -32,4 +32,5 @@ public class SecurityController {
         return securityService.getReservasRealizadas(id);
     }
 
+
 }
