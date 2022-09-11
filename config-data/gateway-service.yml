@@ -24,4 +24,7 @@ spring:
           uri: lb://backweb-service
           predicates:
             - Path=/api/**
-            
+        - id: email-service
+          uri: lb://email-service
+          predicates:
+            - Path=/api/**
