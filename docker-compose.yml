@@ -1,14 +1,18 @@
 version: "3.8"
+
 services:
   config-service:
     build: ./config-service
     ports:
       - "9090:9090"
 
-  eureka-server:
-    build: ./eureka-service
+  eureka-service:
+    container_name: eureka
+    build:
+      context: ./eureka-service
+      dockerfile: Dockerfile
     ports:
-      - "8761:8761"
+      - "9292:9292"
     depends_on:
       - config-service
 
