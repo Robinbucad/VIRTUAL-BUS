@@ -135,7 +135,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<finalName>back-empresa-docker</finalName>
+		<finalName>back-empresa</finalName>
 	</build>
 
 </project>

@@ -9,13 +9,16 @@ import org.springframework.kafka.config.TopicBuilder;
 @Configuration
 public class KafkaConfig {
 
-    @Value("${spring.kafka.topic.name}")
-    private String topicName;
 
 
     @Bean
-    public NewTopic topic(){
-        return TopicBuilder.name(topicName).build();
+    public NewTopic reservasTopic(){
+        return TopicBuilder.name("reservas_topic").build();
+    }
+
+    @Bean
+    public NewTopic emailTopic(){
+        return TopicBuilder.name("emails_topic").build();
     }
 
 }

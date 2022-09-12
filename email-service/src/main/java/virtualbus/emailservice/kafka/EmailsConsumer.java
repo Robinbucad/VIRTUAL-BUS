@@ -5,8 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
-import virtualbus.backweb.reserva.domain.ReservaStatus;
-import virtualbus.backweb.reserva.infraestructure.controller.dto.output.ReservaOutputDTO;
 import virtualbus.emailservice.email.application.EmailService;
 import virtualbus.emailservice.email.domain.EmailEntity;
 import virtualbus.emailservice.email.infraestructure.repository.EmailRepository;
@@ -29,14 +27,14 @@ public class EmailsConsumer {
     public void consume(String to){
 
         EmailEntity email = emailRepository.findEmailByEmail(to).orElse(null);
-        emailService.send(to,buildEmail(email.getNombre(), "El estado de su reserva se encuentra en el estado: "+ email.getReservaStatus()));
+        emailService.send(to,buildEmail("Reserva realizada correctamente"));
 
         LOGGER.info(String.format("Order event received in email service => %s", to));
 
     }
 
 
-    private String buildEmail(String name, String reserva) {
+    private String buildEmail(String reserva) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
                 "\n" +
                 "<span style=\"display:none;font-size:1px;color:#fff;max-height:0\"></span>\n" +
@@ -92,7 +90,7 @@ public class EmailsConsumer {
                 "      <td width=\"10\" valign=\"middle\"><br></td>\n" +
                 "      <td style=\"font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:1.315789474;max-width:560px\">\n" +
                 "        \n" +
-                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hola " + name + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">"+ reserva + "</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> </p></blockquote>\n Nos vemos pronto" +
+                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hola pasajero,</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">"+ reserva + "</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> </p></blockquote>\n Nos vemos pronto" +
                 "        \n" +
                 "      </td>\n" +
                 "      <td width=\"10\" valign=\"middle\"><br></td>\n" +

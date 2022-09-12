@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import virtualbus.backweb.reserva.domain.ReservaEntity;
-import virtualbus.backweb.reserva.domain.ReservaStatus;
 import virtualbus.backweb.reserva.infraestructure.controller.dto.input.ReservaInputDTO;
 import virtualbus.backweb.reserva.infraestructure.controller.dto.output.ReservaOutputDTO;
 import virtualbus.emailservice.email.application.EmailService;
 import virtualbus.emailservice.email.domain.EmailEntity;
+import virtualbus.emailservice.email.domain.ReservaStatus;
 import virtualbus.emailservice.email.infraestructure.repository.EmailRepository;
 
 @Service
@@ -25,34 +25,30 @@ public class ReservaConsumer {
     EmailRepository emailRepository;
 
     @KafkaListener(
-            topics = "reservas_topic",
+            topics = "emails_topic",
             groupId = "${spring.kafka.consumer.group.id}"
     )
-    public void consume(ReservaOutputDTO reserva){
+    public void consume(String email){
 
-        System.out.println(reserva.getReservaStatus().toString());
-
-        switch (reserva.getReservaStatus().toString()){
-            case "PENDIENTE":
-                emailService.send(reserva.getCorreoElectronico(),buildEmail(reserva.getNombre(), "Reserva realizada correctamente"));
-                reserva.setReservaStatus(ReservaStatus.ACEPTADO);
-                emailRepository.save(new EmailEntity(reserva));
-                break;
-            case "CANCELADO":
-                EmailEntity reservaCancelada = new EmailEntity(reserva);
-                reservaCancelada.setReservaStatus(virtualbus.emailservice.email.domain.ReservaStatus.CANCELADO);
-                emailService.send(reserva.getCorreoElectronico(),buildEmail(reserva.getNombre(), "Reserva cancelada correctamente"));
-                emailRepository.save(reservaCancelada);
-                break;
+        EmailEntity emailEntity = emailRepository.findEmailByEmail(email).orElse(null);
+        if (emailEntity == null){
+            emailService.send(email,buildEmail("Reserva realizada correctamente"));
+            emailRepository.save(new EmailEntity(email));
         }
-        LOGGER.info(String.format("Order event received in email service => %s", reserva.toString()));
+        else {
+            emailEntity.setReservaStatus(ReservaStatus.CANCELADO);
+            emailService.send(email,buildEmail("Reserva cancelada correctamente"));
+            emailRepository.save(emailEntity);
+        }
+
+        LOGGER.info(String.format("Order event received in email service => %s", email));
 
 
 
     }
 
 
-    private String buildEmail(String name, String reserva) {
+    private String buildEmail(String reserva) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
                 "\n" +
                 "<span style=\"display:none;font-size:1px;color:#fff;max-height:0\"></span>\n" +
@@ -108,7 +104,7 @@ public class ReservaConsumer {
                 "      <td width=\"10\" valign=\"middle\"><br></td>\n" +
                 "      <td style=\"font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:1.315789474;max-width:560px\">\n" +
                 "        \n" +
-                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hola " + name + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">"+ reserva + "</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> </p></blockquote>\n Nos vemos pronto" +
+                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hola pasajero ,</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">"+ reserva + "</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> </p></blockquote>\n Nos vemos pronto" +
                 "        \n" +
                 "      </td>\n" +
                 "      <td width=\"10\" valign=\"middle\"><br></td>\n" +

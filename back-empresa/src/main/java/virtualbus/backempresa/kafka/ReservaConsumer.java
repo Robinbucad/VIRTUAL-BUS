@@ -23,7 +23,7 @@ public class ReservaConsumer {
     BusService busService;
 
     @KafkaListener(
-            topics = "${spring.kafka.topic.name}",
+            topics = "reservas_topic",
             groupId = "${spring.kafka.consumer.group.id}"
     )
     public void consume(String id_bus){
