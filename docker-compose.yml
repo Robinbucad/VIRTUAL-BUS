@@ -25,6 +25,9 @@ services:
     build: ./eureka-service
     ports:
       - "9292:9292"
+    environment:
+      eureka.instance.hostname: localhost
+      server.port: 9292
   gateway-service:
     build: ./gateway-service
     ports:
