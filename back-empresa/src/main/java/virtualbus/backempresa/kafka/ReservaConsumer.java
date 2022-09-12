@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import virtualbus.backempresa.bus.application.BusService;
 import virtualbus.backempresa.bus.domain.BusEntity;
 import virtualbus.backempresa.bus.infraestructure.repository.BusRepository;
-import virtualbus.backweb.reserva.infraestructure.controller.dto.output.ReservaOutputDTO;
+import virtualbus.backempresa.utils.model.Reserva;
+
+import java.awt.*;
 
 @Service
 public class ReservaConsumer {
@@ -24,11 +26,11 @@ public class ReservaConsumer {
             topics = "${spring.kafka.topic.name}",
             groupId = "${spring.kafka.consumer.group.id}"
     )
-    public void consume(ReservaOutputDTO reserva){
-        BusEntity bus = busRepository.findBusByIdBus(reserva.getIdBus());
+    public void consume(String id_bus){
+        BusEntity bus = busRepository.findBusByIdBus(id_bus);
         bus.setPlazas(bus.getPlazas()-1);
         busService.checkPlazas(bus.getIdBus());
         busRepository.save(bus);
-        LOGGER.info(String.format("Order event received in empresa service => %s", reserva.toString()));
+        LOGGER.info(String.format("Order event received in empresa service => %s", id_bus));
     }
 }

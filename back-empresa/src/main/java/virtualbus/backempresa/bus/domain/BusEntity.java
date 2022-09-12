@@ -2,7 +2,6 @@ package virtualbus.backempresa.bus.domain;
 
 import lombok.Data;
 import virtualbus.backempresa.bus.infraestructure.controller.dto.input.BusInputDTO;
-import virtualbus.backweb.bus.domain.BusStatus;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;

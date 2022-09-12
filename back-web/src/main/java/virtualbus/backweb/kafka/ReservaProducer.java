@@ -8,7 +8,6 @@ import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
-import virtualbus.backweb.reserva.infraestructure.controller.dto.output.ReservaOutputDTO;
 @Service
 public class ReservaProducer {
 
@@ -16,19 +15,19 @@ public class ReservaProducer {
 
     private NewTopic topic;
 
-    private KafkaTemplate<String, ReservaOutputDTO> kafkaTemplate;
+    private KafkaTemplate<String, String> kafkaTemplate;
 
-    public ReservaProducer(NewTopic topic, KafkaTemplate<String, ReservaOutputDTO> kafkaTemplate) {
+    public ReservaProducer(NewTopic topic, KafkaTemplate<String, String> kafkaTemplate) {
         this.topic = topic;
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void sendMessage(ReservaOutputDTO reserva){
-        LOGGER.info(String.format("Reserva event => %s", reserva.toString()));
+    public void sendMessage(String id_bus){
+        LOGGER.info(String.format("Reserva event => %s", id_bus));
 
         //Create message
-        Message<ReservaOutputDTO>message = MessageBuilder
-                .withPayload(reserva)
+        Message<String>message = MessageBuilder
+                .withPayload(id_bus)
                 .setHeader(KafkaHeaders.TOPIC, topic.name())
                 .build();
         kafkaTemplate.send(message);

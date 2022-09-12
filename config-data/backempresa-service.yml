@@ -33,7 +33,8 @@ spring:
           json:
             trusted:
               packages: '*'
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+
     topic:
       name: reservas_topic
 

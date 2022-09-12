@@ -9,10 +9,10 @@ import virtualbus.backempresa.bus.application.BusService;
 import virtualbus.backempresa.kafka.EmpresaProducer;
 import virtualbus.backempresa.utils.client.EmailClient;
 import virtualbus.backempresa.utils.client.ReservasClient;
+import virtualbus.backempresa.utils.exception.notFound.NotFoundException;
 import virtualbus.backempresa.utils.model.Email;
+import virtualbus.backempresa.utils.model.Reserva;
 import virtualbus.backempresa.utils.model.ReservasDisponibles;
-import virtualbus.backweb.exception.notFound.NotFoundException;
-import virtualbus.backweb.reserva.infraestructure.controller.dto.output.ReservaOutputDTO;
 
 import java.util.List;
 
@@ -34,7 +34,7 @@ public class SecurityServiceImpl implements SecurityService{
 
 
     @Override
-    public List<ReservaOutputDTO> getReservasRealizadas(String id) {
+    public List<Reserva> getReservasRealizadas(String id) {
         return reservasClient.getReservasRealizadas(id);
     }
 

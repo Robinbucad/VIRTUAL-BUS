@@ -13,8 +13,8 @@ import virtualbus.backempresa.persona.domain.PersonaRoles;
 import virtualbus.backempresa.persona.infraestructure.controller.input.PersonaInputDTO;
 import virtualbus.backempresa.persona.infraestructure.controller.output.PersonaOutputDTO;
 import virtualbus.backempresa.persona.infraestructure.repository.PersonaRepository;
-import virtualbus.backweb.exception.unprocessable.UnprocessableException;
-import virtualbus.backweb.reserva.domain.ReservaEntity;
+import virtualbus.backempresa.utils.exception.unprocessable.UnprocessableException;
+
 
 import java.util.ArrayList;
 import java.util.Collection;

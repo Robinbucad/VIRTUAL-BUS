@@ -8,7 +8,6 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 import virtualbus.backempresa.utils.model.Email;
-import virtualbus.backweb.reserva.infraestructure.controller.dto.output.ReservaOutputDTO;
 
 @Service
 public class EmpresaProducer {
