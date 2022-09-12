@@ -1,20 +1,19 @@
 version: "3.8"
 
 services:
+
   config-service:
     build: ./config-service
     ports:
       - "9090:9090"
-
-  eureka-service:
-    container_name: eureka
-    build:
-      context: ./eureka-service
-      dockerfile: Dockerfile
+  back-empresa:
+    build: ./back-empresa
     ports:
-      - "9292:9292"
+      - "8085:8085"
     depends_on:
       - config-service
+    environment:
+      spring.kafka.consumer.group.id: emp
 
 
   postgres:
