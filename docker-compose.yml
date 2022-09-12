@@ -11,7 +11,7 @@ services:
       - "9292:9292"
     environment:
       eureka.instance.hostname: eureka-server
-      eureka.client.serviceUrl.defaultZone: http://cloudproject:9292/eureka/
+      eureka.client.serviceUrl.defaultZone: http://config-service:9292/eureka/
 
   postgres:
     image: postgres:latest
