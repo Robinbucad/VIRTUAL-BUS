@@ -1,6 +1,6 @@
 
 server:
-  port: 9292
+  port: 8761
 
 eureka:
   instance:
@@ -9,4 +9,4 @@ eureka:
     registerWithEureka: false
     fetchRegistry: false
     serviceUrl:
-      defaultZone: http://eureka-service:9292/eureka/
+      defaultZone: http://eureka-server:8761/eureka
