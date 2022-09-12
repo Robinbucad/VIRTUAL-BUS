@@ -8,6 +8,9 @@ services:
     build: ./eureka-service
     ports:
       - "8761:8761"
+    environment:
+      - eureka.client.service-url.defaultZone=http//localhost:8761/eureka
+
   postgres:
     image: postgres:latest
     restart: always
