@@ -6,7 +6,7 @@ spring:
     config:
       server:
         git:
-          uri: git@github.com/Robinbucad/VIRTUAL-BUS.git
+          uri: https://github.com/Robinbucad/VIRTUAL-BUS.git
           default-label: master
           searchPaths: config-data
           username: ${GIT_USER}

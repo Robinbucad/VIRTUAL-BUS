@@ -22,8 +22,6 @@ spring:
     consumer:
       auto-offset-reset: earliest
       bootstrap-server: kafka:9092
-      group:
-        id: emp
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       properties:
         spring:

@@ -24,7 +24,7 @@ public class ReservaConsumer {
 
     @KafkaListener(
             topics = "reservas_topic",
-            groupId = "${spring.kafka.consumer.group.id}"
+            groupId = "emp"
     )
     public void consume(String id_bus){
         BusEntity bus = busRepository.findBusByIdBus(id_bus);
