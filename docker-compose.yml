@@ -7,7 +7,7 @@ services:
   eureka-service:
     build: ./eureka-service
     ports:
-      - "9292:9292"
+      - "8761:8761"
   postgres:
     image: postgres:latest
     restart: always
