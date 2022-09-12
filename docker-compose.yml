@@ -1,5 +1,9 @@
 version: "3.8"
 services:
+  config-service:
+    build: ./config-service
+    ports:
+      - "9090:9090"
 
   eureka-service:
     build: ./eureka-service
@@ -7,13 +11,8 @@ services:
       - "9292:9292"
     environment:
       eureka.instance.hostname: eureka-server
-      eureka.client.serviceUrl.defaultZone: http://localhost:9292/eureka/
-  config-service:
-    build: ./config-service
-    ports:
-      - "9090:9090"
-    links:
-      - "eureka-service"
+      eureka.client.serviceUrl.defaultZone: http://cloudproject:9292/eureka/
+
   postgres:
     image: postgres:latest
     restart: always
@@ -26,3 +25,4 @@ services:
         max-file: "3"
     ports:
       - "5432:5432"
+
