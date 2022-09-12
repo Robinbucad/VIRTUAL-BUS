@@ -1,6 +1,43 @@
 version: "3.8"
 services:
   back-empresa:
-    build:
+    build: ./back-empresa
+    ports:
+      - "8085:8085"
+    environment:
+      spring.kafka.consumergroup.id: emp
   back-web:
-  database:
+    build: ./back-web
+    ports:
+      - "8084:8084"
+  config-service:
+    build: ./config-service
+    ports:
+      - "9090:9090"
+    environment:
+      GIT_USER: robin.bucad6@gmail.com
+      GIT_PASSWORD: 1122Loco?
+  email-service:
+    build: ./email-service
+    ports:
+      - "8081:8081"
+  eureka-service:
+    build: ./eureka-service
+    ports:
+      - "9292:9292"
+  gateway-service:
+    build: ./gateway-service
+    ports:
+      - "8080:8080"
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    ports:
+      - "5432:5432"
