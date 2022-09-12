@@ -2,16 +2,17 @@ server:
     port: 8081
 spring:
     datasource:
-    platform: postgres
-    url: jdbc:postgresql://localhost:5444/emails
-    username: postgres
-    password: postgres
-    hikari:
-      connectionTimeout: 20000
-      maximumPoolSize: 5
-  jpa:
-    hibernate:
-      ddl-auto: create
+        platform: postgres
+        url: jdbc:postgresql://localhost:5432/backempresa
+        username: postgres
+        password: postgres
+        hikari:
+            connectionTimeout: 20000
+            maximumPoolSize: 5
+    jpa:
+        hibernate:
+        ddl-auto: create
+
     kafka:
         consumer:
             auto-offset-reset: earliest

@@ -3,16 +3,17 @@ server:
 
 spring:
     datasource:
-    platform: postgres
-    url: jdbc:postgresql://localhost:5031/backweb
-    username: postgres
-    password: postgres
-    hikari:
-      connectionTimeout: 20000
-      maximumPoolSize: 5
-  jpa:
-    hibernate:
-      ddl-auto: create
+        platform: postgres
+        url: jdbc:postgresql://localhost:5031/backweb
+        username: postgres
+        password: postgres
+        hikari:
+            connectionTimeout: 20000
+            maximumPoolSize: 5
+    jpa:
+        hibernate:
+        ddl-auto: create
+
     kafka:
 
         producer:
