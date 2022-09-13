@@ -11,7 +11,7 @@ import virtualbus.backempresa.utils.model.ReservasDisponibles;
 
 import java.util.List;
 
-@FeignClient(value = "service-reservas", url ="http://localhost:8084/api/v0")
+@FeignClient(value = "service-reservas", url ="${FEIGN_CLIENT_URL:http://localhost:8084/api/v0}")
 public interface ReservasClient {
 
     @PostMapping("/reservasDisponibles")

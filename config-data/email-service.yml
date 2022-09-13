@@ -53,4 +53,4 @@ spring.mail:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:9292/eureka/
+      defaultZone: ${EUREKA_DEFAULT_ZONE_URL:http://localhost:9292/eureka/}

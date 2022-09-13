@@ -76,12 +76,15 @@ services:
       command: -p 5444
 
   backempresa-service:
+      container_name: backempresa
       build: ./back-empresa
       environment:
         SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:29092
         CLOUD_SEA_CONFIG_SERVER_URI: http://config-service:9090
         EUREKA_DEFAULT_ZONE_URL: http://eureka-server:9292/eureka/
         DATABASE_URL: jdbc:postgresql://backempresa-db:5432/backempresa
+        FEIGN_CLIENT_URL: http://backweb:8084/api/v0
+
       ports:
         - "8085:8085"
       depends_on:
@@ -96,12 +99,13 @@ services:
 
 
   backweb-service:
+      container_name: backweb
       build: ./back-web
       environment:
         SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:29092
         CLOUD_SEA_CONFIG_SERVER_URI: http://config-service:9090
         EUREKA_DEFAULT_ZONE_URL: http://eureka-server:9292/eureka/
-        DATABASE_URL: jdbc:postgresql://backweb-db:5031/backempresa
+        DATABASE_URL: jdbc:postgresql://backweb-db:5031/backweb
       ports:
         - "8084:8084"
       depends_on:
@@ -113,6 +117,25 @@ services:
         - config-service:config-service
         - eureka-server:eureka-server
         - back-web:backweb
+  email-service:
+    container_name: emails
+    build: ./back-web
+    environment:
+      SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:29092
+      CLOUD_SEA_CONFIG_SERVER_URI: http://config-service:9090
+      EUREKA_DEFAULT_ZONE_URL: http://eureka-server:9292/eureka/
+      DATABASE_URL: jdbc:postgresql://backweb-db:5444/emails
+    ports:
+      - "8084:8084"
+    depends_on:
+      - email-db
+      - config-service
+      - kafka
+      - eureka-server
+    links:
+      - config-service:config-service
+      - eureka-server:eureka-server
+      - email-db:email-db
 
 
 
