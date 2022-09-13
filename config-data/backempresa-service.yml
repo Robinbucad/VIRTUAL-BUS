@@ -26,7 +26,7 @@ spring:
         properties:
           spring.json.trusted.packages: "*"
         value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-          
+        
 
     topic:
       name: reservas_topic
