@@ -29,8 +29,7 @@ spring:
           json:
             trusted:
               packages: "*"
-          type:
-            mapping: KafkaReservaOrder:com.virtualbus.backempresa.reservas.domain
+          
 
     topic:
       name: reservas_topic
