@@ -41,6 +41,58 @@ services:
     - config-service
     links:
       - config-service:config-service
+  backempresa-db:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=backempresa
+
+  back-web:
+      image: postgres
+      restart: always
+      ports:
+        - 5031:5031
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+        - POSTGRES_DB=backweb
+      command: -p 5031
+
+  email-db:
+      image: postgres
+      restart: always
+      ports:
+        - 5444:5444
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+        - POSTGRES_DB=emails
+      command: -p 5444
+
+  backempresa-service:
+      build: ./back-empresa
+      environment:
+        SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:29092
+      ports:
+        - "8085:8085"
+      depends_on:
+        - config-service
+        - kafka
+
+
+  backweb-service:
+      build: ./back-web
+      environment:
+        SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:29092
+      ports:
+        - "8084:8084"
+      depends_on:
+        - config-service
+        - kafka
 
 
 
