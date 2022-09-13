@@ -1,16 +1,14 @@
-package virtualbus.backweb.reserva.infraestructure.controller.dto.input;
+package virtualbus.backweb.reserva.domain;
 
 import lombok.Data;
 import virtualbus.backweb.bus.domain.BusEntity;
-import virtualbus.backweb.reserva.domain.ReservaEntity;
-import virtualbus.backweb.reserva.domain.ReservaStatus;
+import virtualbus.backweb.reserva.infraestructure.controller.dto.input.ReservaInputDTO;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 @Data
-public class ReservaInputDTO {
-
+public class ReservaOrder {
     private String reservaId;
     private String ciudadDestino;
     private String nombre;
@@ -23,8 +21,7 @@ public class ReservaInputDTO {
     private ReservaStatus status;
     private String idBus;
 
-
-    public ReservaInputDTO (ReservaEntity reserva, BusEntity bus){
+    public ReservaOrder (ReservaInputDTO reserva, BusEntity bus){
         setReservaId(reserva.getReservaId());
         setCiudadDestino(bus.getCiudadDestino());
         setNombre(reserva.getNombre());
@@ -37,5 +34,5 @@ public class ReservaInputDTO {
         setStatus(ReservaStatus.PENDIENTE);
     }
 
-    public ReservaInputDTO(){}
+    public ReservaOrder(){}
 }

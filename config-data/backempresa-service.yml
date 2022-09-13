@@ -23,12 +23,14 @@ spring:
       auto-offset-reset: earliest
       bootstrap-servers: ${KAFKA_CONSUMER_URL:http://localhost:9092}
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring:
           json:
             trusted:
-              packages: '*'
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+              packages: "*"
+          type:
+            mapping: KafkaReservaOrder:package virtualbus.backempresa.reservas.domain
 
     topic:
       name: reservas_topic
