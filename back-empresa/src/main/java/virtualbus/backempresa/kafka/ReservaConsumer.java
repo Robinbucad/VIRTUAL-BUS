@@ -12,6 +12,7 @@ import virtualbus.backempresa.reservas.domain.ReservaOrder;
 import virtualbus.backempresa.utils.model.Reserva;
 
 import java.awt.*;
+import java.io.PrintStream;
 
 @Service
 public class ReservaConsumer {
@@ -30,12 +31,11 @@ public class ReservaConsumer {
     public void consume(ReservaOrder reservaOrder){
         System.out.println(reservaOrder);
         /*
-        BusEntity bus = busRepository.findBusByIdBus(id_bus);
+         BusEntity bus = busRepository.findBusByIdBus(id_bus);
         bus.setPlazas(bus.getPlazas()-1);
         busService.checkPlazas(bus.getIdBus());
         busRepository.save(bus);
-        */
-
+        * */
         LOGGER.info(String.format("Order event received in empresa service => %s", reservaOrder));
     }
 }

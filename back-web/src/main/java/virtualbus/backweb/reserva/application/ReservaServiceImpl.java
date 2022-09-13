@@ -10,7 +10,6 @@ import virtualbus.backweb.exception.notFound.NotFoundException;
 import virtualbus.backweb.exception.unprocessable.UnprocessableException;
 import virtualbus.backweb.kafka.ReservaProducer;
 import virtualbus.backweb.reserva.domain.ReservaEntity;
-import virtualbus.backweb.reserva.domain.ReservaOrder;
 import virtualbus.backweb.reserva.domain.ReservaStatus;
 import virtualbus.backweb.reserva.infraestructure.controller.dto.input.ReservaInputDTO;
 import virtualbus.backweb.reserva.infraestructure.controller.dto.output.ReservaDisponibleOutputDTO;
@@ -67,10 +66,9 @@ public class ReservaServiceImpl implements ReservaService{
 
     @Override
     public String postReserva(ReservaInputDTO reservaInputDTO, String idBus) {
-        reservaInputDTO.setReservaId(UUID.randomUUID().toString());
-        System.out.println(reservaInputDTO);
         ReservaEntity checkReserva = reservasRepository.findBycorreoElectronico(reservaInputDTO.getCorreoElectronico()).orElse(null);
         if (checkReserva != null) throw new UnprocessableException("El usuario ya ha realizado una reserva");
+        reservaInputDTO.setReservaId(UUID.randomUUID().toString());
         BusEntity bus = busRepository.findBusByIdBus(idBus).orElseThrow(
                 ()-> new NotFoundException("Bus no existe")
         );
@@ -88,11 +86,8 @@ public class ReservaServiceImpl implements ReservaService{
         bus.setPlazas(bus.getPlazas()-1);
 
         ReservaEntity reserva = new ReservaEntity(reservaInputDTO,bus);
-
-
-        reservaProducer.sendMessageToReservas(new ReservaOrder(reservaInputDTO,bus));
+        reservaProducer.sendMessageToReservas(reservaInputDTO);
         reservaProducer.sendMessageToEmails(reserva.getCorreoElectronico());
-
         reserva.setStatus(ReservaStatus.ACEPTADO);
         reservasRepository.save(reserva);
         reservasDisponiblesRepository.save(reservaDisponible);
@@ -128,10 +123,9 @@ public class ReservaServiceImpl implements ReservaService{
         ReservaDisponibleEntity reservaDisponible = reservasDisponiblesRepository.findReservaDisponibleByIdBus(bus.getIdBus()).orElseThrow(
                 () -> new NotFoundException("ReservaDisponible no existente")
         );
-        reserva.setStatus(ReservaStatus.CANCELADO);
-
         ReservaInputDTO reservaInputDTO = new ReservaInputDTO(reserva,bus);
-        reservaProducer.sendMessageToReservas(new ReservaOrder(reservaInputDTO,bus));
+        reserva.setStatus(ReservaStatus.CANCELADO);
+        reservaProducer.sendMessageToReservas(reservaInputDTO);
         reservaProducer.sendMessageToEmails(reserva.getCorreoElectronico());
         bus.setPlazas(bus.getPlazas()+1);
         reservaDisponible.setNumeroPlazas(bus.getPlazas()+1);
