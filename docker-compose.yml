@@ -13,12 +13,11 @@ services:
     depends_on:
       - zookeeper
     ports:
-      - 9092:9092
-      - 29093:29092
+      - 9092
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
@@ -86,8 +85,8 @@ services:
       DATABASE_URL: jdbc:postgresql://backempresa-db:5432/backempresa
       FEIGN_CLIENT_URL: http://backweb:8084/api/v0
       FEIGN_CLIENT_URL_EMAIL: http://emails:8081/api/v0
-      KAFKA_PRODUCER_URL: http://kafka:9092
-      KAFKA_CONSUMER_URL: http://kafka:9092
+      KAFKA_PRODUCER_URL: http://kafka:29092
+      KAFKA_CONSUMER_URL: http://kafka:29092
     ports:
       - "8085:8085"
     depends_on:
@@ -111,7 +110,7 @@ services:
       EUREKA_DEFAULT_ZONE_URL: http://eureka-server:9292/eureka/
       DATABASE_URL: jdbc:postgresql://backweb-db:5031/backweb
       FEIGN_CLIENT_URL: http://backempresa:8085/api/v0
-      KAFKA_PRODUCER_URL: http://kafka:9092
+      KAFKA_PRODUCER_URL: http://kafka:29092
     ports:
       - "8084:8084"
     depends_on:
@@ -133,7 +132,7 @@ services:
       CLOUD_SEA_CONFIG_SERVER_URI: http://config-service:9090
       EUREKA_DEFAULT_ZONE_URL: http://eureka-server:9292/eureka/
       DATABASE_URL: jdbc:postgresql://email-db:5444/emails
-      KAFKA_CONSUMER_URL: http://kafka:9092
+      KAFKA_CONSUMER_URL: http://kafka:29092
     ports:
       - "8081:8081"
     depends_on:

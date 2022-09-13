@@ -23,7 +23,7 @@ public class ReservaConsumer {
 
     @KafkaListener(
             topics = "emails_topic",
-            groupId = "${spring.kafka.consumer.group.id}"
+            groupId = "email"
     )
     public void consume(String email){
 

@@ -22,7 +22,7 @@ public class EmailsConsumer {
 
     @KafkaListener(
             topics = "emails",
-            groupId = "${spring.kafka.consumer.group.id}"
+            groupId = "email"
     )
     public void consume(String to){
 
