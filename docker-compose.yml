@@ -107,7 +107,7 @@ services:
         EUREKA_DEFAULT_ZONE_URL: http://eureka-server:9292/eureka/
         DATABASE_URL: jdbc:postgresql://backweb-db:5031/backweb
       ports:
-        - "8084:8084"
+        - "8081:8081"
       depends_on:
         - back-web
         - config-service
@@ -124,7 +124,7 @@ services:
       SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:29092
       CLOUD_SEA_CONFIG_SERVER_URI: http://config-service:9090
       EUREKA_DEFAULT_ZONE_URL: http://eureka-server:9292/eureka/
-      DATABASE_URL: jdbc:postgresql://backweb-db:5444/emails
+      DATABASE_URL: jdbc:postgresql://email-db:5444/emails
     ports:
       - "8084:8084"
     depends_on:
