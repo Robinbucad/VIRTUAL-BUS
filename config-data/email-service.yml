@@ -3,7 +3,7 @@ server:
 spring:
     datasource:
         platform: postgres
-        url: jdbc:postgresql://localhost:5432/backempresa
+        url: jdbc:postgresql://localhost:5444/emails
         username: postgres
         password: postgres
         hikari:
