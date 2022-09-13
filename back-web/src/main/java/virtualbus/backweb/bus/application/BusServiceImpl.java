@@ -32,8 +32,8 @@ public class BusServiceImpl implements BusService{
 
     @Override
     public BusOutputDTO getBusById(String id) {
-        BusEntity bus = busRepository.findBusByIdBus(id).orElseThrow(
-                ()-> new NotFoundException("Bus no existe")
+        BusEntity bus = busRepository.findById(id).orElseThrow(
+                ()-> new NotFoundException("Bus que busca no existe")
         );
         return new BusOutputDTO(bus);
     }
