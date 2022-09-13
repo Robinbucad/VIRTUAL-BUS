@@ -27,13 +27,16 @@ services:
     build: ./config-service
     ports:
       - "9090:9090"
-
+    expose:
+      - "9090"
 
   eureka-server:
     build: ./eureka-service
-    hostname: eureka-server
     ports:
       - "9292:9292"
+    environment:
+      CLOUD_SEA_CONFIG_SERVER_URI: http://config-service:9090
+      EUREKA_DEFAULT_ZONE_URL: http://eureka-server:9292/eureka/
     depends_on:
     - config-service
     links:

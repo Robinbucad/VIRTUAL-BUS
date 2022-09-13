@@ -1,9 +1,9 @@
 spring:
   application:
-    name: eureka-service
+    name: ${SPRING_APPLICATION_NAME:eureka-service}
   cloud:
     config:
-      uri: http://localhost:9090
+      uri: ${CLOUD_SEA_CONFIG_SERVER_URI:http://localhost:9090}
       username: root
       password: s3cr3t
       fail-fast: true
