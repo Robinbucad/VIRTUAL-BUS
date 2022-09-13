@@ -24,10 +24,7 @@ spring:
         bootstrap-servers: ${KAFKA_CONSUMER_URL:http://localhost:9092}
         key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
         properties:
-            spring:
-                json:
-                    trusted:
-                        packages: '*'
+        spring.json.trusted.packages: "*"
         value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
           
 
