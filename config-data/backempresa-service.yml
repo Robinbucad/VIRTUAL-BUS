@@ -16,12 +16,12 @@ spring:
 
   kafka:
     producer:
-      bootstrap-servers: kafka:9092
+      bootstrap-servers: ${KAFKA_PRODUCER_URL:http://localhost:9092}
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
     consumer:
       auto-offset-reset: earliest
-      bootstrap-server: kafka:9092
+      bootstrap-server: ${KAFKA_CONSUMER_URL:http://localhost:9092}
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       properties:
         spring:
