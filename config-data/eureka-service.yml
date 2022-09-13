@@ -1,15 +1,12 @@
 
 server:
   port: 9292
-  
+
 eureka:
   instance:
-    hostname: localhost
-    prefer-ip-address: true
+    hostname: config-server
   client:
-    registerWithEureka: false
-    fetchRegistry: false
+    registerWithEureka: true
+    fetchRegistry: true
     serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
-  server:
-    enable-self-preservation: false
