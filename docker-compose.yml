@@ -32,13 +32,12 @@ services:
   eureka-server:
     build: ./eureka-service
     hostname: eureka-server
-    restart: on-failure
     ports:
       - "9292:9292"
     depends_on:
     - config-service
     links:
-    - config-service
+      - config-service:config-service
 
 
 
