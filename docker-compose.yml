@@ -42,6 +42,7 @@ services:
     links:
       - config-service:config-service
   backempresa-db:
+    container_name: backempresa-db
     image: postgres
     restart: always
     ports:
@@ -52,6 +53,7 @@ services:
       - POSTGRES_DB=backempresa
 
   back-web:
+      container_name: backweb-db
       image: postgres
       restart: always
       ports:
@@ -77,22 +79,40 @@ services:
       build: ./back-empresa
       environment:
         SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:29092
+        CLOUD_SEA_CONFIG_SERVER_URI: http://config-service:9090
+        EUREKA_DEFAULT_ZONE_URL: http://eureka-server:9292/eureka/
+        DATABASE_URL: jdbc:postgresql://backempresa-db:5432/backempresa
       ports:
         - "8085:8085"
       depends_on:
+        - backempresa-db
         - config-service
         - kafka
+        - eureka-server
+      links:
+          - config-service:config-service
+          - eureka-server:eureka-server
+          - backempresa-db:backempresa-db
 
 
   backweb-service:
       build: ./back-web
       environment:
         SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:29092
+        CLOUD_SEA_CONFIG_SERVER_URI: http://config-service:9090
+        EUREKA_DEFAULT_ZONE_URL: http://eureka-server:9292/eureka/
+        DATABASE_URL: jdbc:postgresql://backweb-db:5031/backempresa
       ports:
         - "8084:8084"
       depends_on:
+        - back-web
         - config-service
         - kafka
+        - eureka-server
+      links:
+        - config-service:config-service
+        - eureka-server:eureka-server
+        - back-web:backweb
 
 
 
