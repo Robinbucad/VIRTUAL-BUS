@@ -1,11 +1,7 @@
 
 server:
   port: 9292
-
-spring:
-  application:
-    name: eureka-service
-
+  
 eureka:
   instance:
     hostname: localhost

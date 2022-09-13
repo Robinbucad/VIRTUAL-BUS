@@ -4,6 +4,7 @@ server:
 spring:
   cloud:
     config:
+      enables: true
       server:
         git:
           uri: https://github.com/Robinbucad/VIRTUAL-BUS.git
@@ -11,6 +12,9 @@ spring:
           searchPaths: config-data
           username: ${GIT_USER}
           password: ${GIT_PASSWORD}
+          failFast: true
+          retry:
+            maxAttempts: 20
   security:
     user:
       name: root
