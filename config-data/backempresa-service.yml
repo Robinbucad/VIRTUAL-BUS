@@ -30,7 +30,7 @@ spring:
             trusted:
               packages: "*"
           type:
-            mapping: KafkaReservaOrder:package virtualbus.backempresa.reservas.domain
+            mapping: KafkaReservaOrder:com.virtualbus.backempresa.reservas.domain
 
     topic:
       name: reservas_topic
