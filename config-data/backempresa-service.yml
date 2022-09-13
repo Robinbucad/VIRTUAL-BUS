@@ -25,14 +25,10 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       properties:
         spring:
-          deserializer:
-            value:
-              delegate:
-                class: org.springframework.kafka.support.serializer.JsonDeserializer
           json:
             trusted:
               packages: '*'
-      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
 
     topic:
       name: reservas_topic

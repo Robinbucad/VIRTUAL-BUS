@@ -27,10 +27,7 @@ services:
     build: ./config-service
     ports:
       - "9090:9090"
-  eureka-server:
-    build: ./eureka-service
-    ports:
-      - "9292:9292"
+
   backempresa-db:
     image: postgres
     restart: always
@@ -65,11 +62,8 @@ services:
 
   backempresa-service:
     build: ./back-empresa
-    links:
-      - eureka-server
     environment:
       SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:29092
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:9292/eureka
     ports:
       - "8085:8085"
     depends_on:
@@ -79,11 +73,8 @@ services:
 
   backweb-service:
     build: ./back-web
-    links:
-      - eureka-server
     environment:
       SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:29092
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:9292/eureka
     ports:
       - "8084:8084"
     depends_on:
