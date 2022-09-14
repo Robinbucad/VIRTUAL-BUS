@@ -11,8 +11,12 @@ import virtualbus.bus.infraestructure.repository.BusRepository;
 import virtualbus.email.application.EmailService;
 import virtualbus.email.domain.EmailEntity;
 import virtualbus.email.infraestructure.repository.EmailRepository;
+import virtualbus.reserva.domain.ReservaEntity;
+import virtualbus.reserva.domain.ReservaStatus;
 import virtualbus.reserva.infraestructure.controller.dto.input.ReservaInputDTO;
+import virtualbus.reserva.infraestructure.repository.ReservasRepository;
 import virtualbus.utils.exception.notFound.NotFoundException;
+import virtualbus.utils.exception.unprocessable.UnprocessableException;
 
 @Service
 public class ReservaConsumer {
@@ -30,6 +34,9 @@ public class ReservaConsumer {
     @Autowired
     EmailRepository emailRepository;
 
+    @Autowired
+    ReservasRepository reservasRepository;
+
     @KafkaListener(
             topics = "reservas_topic",
             groupId = "emp"
@@ -41,14 +48,40 @@ public class ReservaConsumer {
         BusEntity bus = busRepository.findBusByIdBus(reservaInputDTO.getIdBus()).orElseThrow(
                 ()-> new NotFoundException("Bus no existe")
         );
-        bus.setPlazas(bus.getPlazas()-1);
-        busService.checkPlazas(bus.getIdBus());
-        busRepository.save(bus);
 
-        emailService.send(reservaInputDTO.getCorreoElectronico(), buildEmail("HOLACABROIN"));
-        EmailEntity email = new EmailEntity(reservaInputDTO.getCorreoElectronico());
-        emailRepository.save(email);
+
+
+        System.out.println(reservaInputDTO.getStatus());
+        if (reservaInputDTO.getStatus().equals(ReservaStatus.PENDIENTE)){
+            bus.setPlazas(bus.getPlazas()-1);
+            busService.checkPlazas(bus.getIdBus());
+            busRepository.save(bus);
+
+            reservasRepository.save(new ReservaEntity(reservaInputDTO,bus));
+
+            emailService.send(reservaInputDTO.getCorreoElectronico(), buildEmail("Gracias por realizar la reserva"));
+            EmailEntity email = new EmailEntity(reservaInputDTO.getCorreoElectronico());
+            emailRepository.save(email);
+        }
+        if (reservaInputDTO.getStatus().equals(ReservaStatus.CANCELADO)){
+            EmailEntity emailCheck = emailRepository.findEmailByEmail(reservaInputDTO.getCorreoElectronico()).orElseThrow(
+                    ()-> new NotFoundException("Email no existe")
+            );
+            bus.setPlazas(bus.getPlazas()+1);
+            busService.checkPlazas(bus.getIdBus());
+            busRepository.save(bus);
+
+            ReservaEntity reserva = reservasRepository.findById(reservaInputDTO.getReservaId()).orElseThrow(
+                    () -> new NotFoundException("Reserva no existe")
+            );
+            reservasRepository.delete(reserva);
+            emailService.send(reservaInputDTO.getCorreoElectronico(), buildEmail("Reserva cancelada correctamente"));
+            emailCheck.setReservaStatus(virtualbus.email.domain.ReservaStatus.CANCELADO);
+            emailRepository.save(emailCheck);
+        }
+
         LOGGER.info(String.format("Order event received in empresa service => %s", reservaInputDTO));
+
     }
 
     private String buildEmail(String reserva) {

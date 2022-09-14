@@ -17,12 +17,9 @@ spring:
         - id: BACKEMPRESA-SERVICE
           uri: lb://BACKEMPRESA-SERVICE
           predicates:
-            - Path=/api/v0/**
+            - Path=/api/v0/busesEmpresa/** , /api/v0/checkSecurity/** , /api/v0/personas/**
         - id: BACKWEB-SERVICE
           uri: lb://BACKWEB-SERVICE
           predicates:
-            - Path=/api/v0/reservas/**
-        - id: EMAIL-SERVICE
-          uri: lb://EMAIL-SERVICE
-          predicates:
-            - Path=/api/v0/emails/**
+            - Path=/api/v0/reservasWeb/** , /api/v0/reservasDisponiblesWeb/** 
+       

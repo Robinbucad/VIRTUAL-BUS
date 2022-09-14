@@ -52,7 +52,7 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=backempresa
 
-  back-web:
+  backweb-db:
     container_name: backweb-db
     image: postgres
     restart: always
@@ -64,16 +64,6 @@ services:
       - POSTGRES_DB=backweb
     command: -p 5031
 
-  email-db:
-    image: postgres
-    restart: always
-    ports:
-      - "5444:5444"
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=emails
-    command: -p 5444
 
   backempresa-service:
     container_name: backempresa
@@ -87,6 +77,7 @@ services:
       FEIGN_CLIENT_URL_EMAIL: http://emails:8081/api/v0
       KAFKA_PRODUCER_URL: http://kafka:29092
       KAFKA_CONSUMER_URL: http://kafka:29092
+      EMAIL_PASSWORD: fpqijabtnfympxod
     ports:
       - "8085:8085"
     depends_on:
@@ -114,37 +105,17 @@ services:
     ports:
       - "8084:8084"
     depends_on:
-      - back-web
+      - backweb-db
       - config-service
       - kafka
       - eureka-server
     links:
       - config-service:config-service
       - eureka-server:eureka-server
-      - back-web:backweb
+      - backweb-db:backweb-db
       - kafka:kafka
 
-  email-service:
-    container_name: emails
-    build: ./email-service
-    environment:
-      SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:29092
-      CLOUD_SEA_CONFIG_SERVER_URI: http://config-service:9090
-      EUREKA_DEFAULT_ZONE_URL: http://eureka-server:9292/eureka/
-      DATABASE_URL: jdbc:postgresql://email-db:5444/emails
-      KAFKA_CONSUMER_URL: http://kafka:29092
-      EMAIL_PASSWORD: fpqijabtnfympxod
-    ports:
-      - "8081:8081"
-    depends_on:
-      - email-db
-      - config-service
-      - kafka
-      - eureka-server
-    links:
-      - config-service:config-service
-      - eureka-server:eureka-server
-      - email-db:email-db
+
 
 
 

@@ -2,10 +2,8 @@ package virtualbus.utils.client;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import virtualbus.reserva.infraestructure.controller.dto.input.ReservaInputDTO;
 import virtualbus.utils.model.Reserva;
 import virtualbus.utils.model.ReservasDisponibles;
 
@@ -19,4 +17,10 @@ public interface ReservasClient {
 
     @GetMapping("/reservasWeb/{id}")
     List<Reserva> getReservasRealizadas(@PathVariable String id);
+
+    @PostMapping("/reservasWeb")
+    public ResponseEntity<String> postReserva(
+            @RequestBody ReservaInputDTO reserva,
+            @RequestParam(value = "id_bus") String idBus
+    );
 }

@@ -6,6 +6,8 @@ import virtualbus.bus.domain.BusEntity;
 import virtualbus.bus.infraestructure.controller.dto.input.BusInputDTO;
 import virtualbus.bus.infraestructure.controller.dto.output.BusOutputDTO;
 import virtualbus.bus.infraestructure.repository.BusRepository;
+import virtualbus.reserva.domain.ReservaEntity;
+import virtualbus.reserva.infraestructure.repository.ReservasRepository;
 import virtualbus.utils.exception.notFound.NotFoundException;
 import virtualbus.utils.exception.unprocessable.UnprocessableException;
 import virtualbus.utils.client.BusClient;
@@ -28,6 +30,9 @@ public class BusServiceImpl implements BusService {
     @Autowired
     ReservasClient reservasClient;
 
+    @Autowired
+    ReservasRepository reservasRepository;
+
 
     @Override
     public BusOutputDTO createBus(BusInputDTO bus) {
@@ -41,6 +46,7 @@ public class BusServiceImpl implements BusService {
         busRepository.save(newBus);
         busClient.createBus(bus).getBody();
         reservasClient.createReservaDisponible(bus.getIdBus());
+
         return new BusOutputDTO(newBus);
     }
 

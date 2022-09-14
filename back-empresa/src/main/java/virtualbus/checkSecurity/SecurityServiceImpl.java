@@ -6,8 +6,9 @@ import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import virtualbus.bus.application.BusService;
+import virtualbus.email.application.EmailService;
+import virtualbus.email.infraestructure.controller.dto.output.EmailOutputDTO;
 import virtualbus.kafka.EmpresaProducer;
-import virtualbus.utils.client.EmailClient;
 import virtualbus.utils.client.ReservasClient;
 import virtualbus.utils.exception.notFound.NotFoundException;
 import virtualbus.utils.model.Email;
@@ -19,7 +20,7 @@ import java.util.List;
 public class SecurityServiceImpl implements SecurityService{
 
     @Autowired
-    EmailClient emailClient;
+    EmailService emailService;
 
     @Autowired
     ReservasClient reservasClient;
@@ -43,14 +44,14 @@ public class SecurityServiceImpl implements SecurityService{
     }
 
     @Override
-    public List<Email> getEmails() {
-        return emailClient.getEmails();
+    public List<EmailOutputDTO> getEmails() {
+        return emailService.getEmails();
     }
 
 
     @Override
     public String resendEmail(String to) {
-        empresaProducer.sendMessage(to);
+        emailService.resend(to);
         return "Email reenviado correctamente";
     }
 

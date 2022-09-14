@@ -8,4 +8,7 @@ public interface EmailService {
      void send(String to,String email);
 
      List<EmailOutputDTO> getEmails();
+
+     void resend(String to);
+
 }

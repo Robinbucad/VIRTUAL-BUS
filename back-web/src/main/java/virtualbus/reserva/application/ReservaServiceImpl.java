@@ -121,6 +121,7 @@ public class ReservaServiceImpl implements ReservaService{
         );
 
         reserva.setStatus(ReservaStatus.CANCELADO);
+        System.out.println(reserva);
         bus.setPlazas(bus.getPlazas()+1);
         reservaDisponible.setNumeroPlazas(bus.getPlazas()+1);
         reservasRepository.delete(reserva);

@@ -34,7 +34,7 @@ public class ReservaInputDTO {
         setFecha(reserva.getFecha());
         setHora(reserva.getHora());
         setIdBus(reserva.getIdBus());
-        setStatus(ReservaStatus.PENDIENTE);
+        setStatus(reserva.getStatus());
     }
 
     public ReservaInputDTO(){}
