@@ -1,4 +1,4 @@
-package virtualbus.emailservice.kafka;
+package virtualbus.model;
 
 public enum ReservaStatus {
     PENDIENTE,

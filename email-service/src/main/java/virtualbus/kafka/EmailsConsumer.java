@@ -1,13 +1,13 @@
-package virtualbus.emailservice.kafka;
+package virtualbus.kafka;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
-import virtualbus.emailservice.email.application.EmailService;
-import virtualbus.emailservice.email.domain.EmailEntity;
-import virtualbus.emailservice.email.infraestructure.repository.EmailRepository;
+import virtualbus.email.application.EmailService;
+import virtualbus.email.domain.EmailEntity;
+import virtualbus.email.infraestructure.repository.EmailRepository;
 
 @Service
 public class EmailsConsumer {

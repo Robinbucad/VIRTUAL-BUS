@@ -29,7 +29,8 @@ spring:
                     json:
                         trusted:
                             packages: '*'
-                 
+                    type:
+                      mapping: ReservasInputDTO:virtualbus.reserva.infraestructure.controller.dto.input
             value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
         
 

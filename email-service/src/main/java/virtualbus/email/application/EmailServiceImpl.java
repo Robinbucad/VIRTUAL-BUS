@@ -1,13 +1,13 @@
-package virtualbus.emailservice.email.application;
+package virtualbus.email.application;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import virtualbus.emailservice.email.domain.EmailEntity;
-import virtualbus.emailservice.email.infraestructure.controller.dto.output.EmailOutputDTO;
-import virtualbus.emailservice.email.infraestructure.repository.EmailRepository;
+import virtualbus.email.domain.EmailEntity;
+import virtualbus.email.infraestructure.controller.dto.output.EmailOutputDTO;
+import virtualbus.email.infraestructure.repository.EmailRepository;
 
 import javax.mail.internet.MimeMessage;
 import java.util.ArrayList;

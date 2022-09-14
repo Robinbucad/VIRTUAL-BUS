@@ -1,14 +1,15 @@
-package virtualbus.emailservice.kafka;
+package virtualbus.kafka;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
-import virtualbus.emailservice.email.application.EmailService;
-import virtualbus.emailservice.email.domain.EmailEntity;
-import virtualbus.emailservice.email.domain.ReservaStatus;
-import virtualbus.emailservice.email.infraestructure.repository.EmailRepository;
+import virtualbus.email.application.EmailService;
+import virtualbus.email.domain.EmailEntity;
+import virtualbus.email.domain.ReservaStatus;
+import virtualbus.email.infraestructure.repository.EmailRepository;
+import virtualbus.reserva.infraestructure.controller.dto.input.ReservaInputDTO;
 
 @Service
 public class ReservaConsumer {
@@ -22,23 +23,23 @@ public class ReservaConsumer {
     EmailRepository emailRepository;
 
     @KafkaListener(
-            topics = "emails_topic",
+            topics = "reservas_topic",
             groupId = "email"
     )
-    public void consume(String email){
-
-        EmailEntity emailEntity = emailRepository.findEmailByEmail(email).orElse(null);
+    public void consume(ReservaInputDTO reservaInputDTO){
+        System.out.println(reservaInputDTO);
+        EmailEntity emailEntity = emailRepository.findEmailByEmail(reservaInputDTO.getCorreoElectronico()).orElse(null);
         if (emailEntity == null){
-            emailService.send(email,buildEmail("Reserva realizada correctamente"));
-            emailRepository.save(new EmailEntity(email));
+            emailService.send(reservaInputDTO.getCiudadDestino(), buildEmail("Reserva realizada correctamente"));
+            emailRepository.save(new EmailEntity(reservaInputDTO.getCorreoElectronico()));
         }
         else {
             emailEntity.setReservaStatus(ReservaStatus.CANCELADO);
-            emailService.send(email,buildEmail("Reserva cancelada correctamente"));
+            emailService.send(reservaInputDTO.getCorreoElectronico(),buildEmail("Reserva cancelada correctamente"));
             emailRepository.save(emailEntity);
         }
 
-        LOGGER.info(String.format("Order event received in email service => %s", email));
+        LOGGER.info(String.format("Order event received in email service => %s", reservaInputDTO));
 
 
 

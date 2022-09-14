@@ -1,8 +1,8 @@
-package virtualbus.emailservice.email.infraestructure.controller.dto.output;
+package virtualbus.email.infraestructure.controller.dto.output;
 
 import lombok.Data;
-import virtualbus.emailservice.email.domain.EmailEntity;
-import virtualbus.emailservice.email.domain.ReservaStatus;
+import virtualbus.email.domain.EmailEntity;
+import virtualbus.email.domain.ReservaStatus;
 
 
 @Data

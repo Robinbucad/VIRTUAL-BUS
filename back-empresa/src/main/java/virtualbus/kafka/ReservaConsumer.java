@@ -28,14 +28,14 @@ public class ReservaConsumer {
     public void consume(ReservaInputDTO reservaInputDTO){
         System.out.println(reservaInputDTO);
 
-        /*
+
         BusEntity bus = busRepository.findBusByIdBus(reservaInputDTO.getIdBus()).orElseThrow(
                 ()-> new NotFoundException("Bus no existe")
         );
         bus.setPlazas(bus.getPlazas()-1);
         busService.checkPlazas(bus.getIdBus());
         busRepository.save(bus);
-        */
+
 
         LOGGER.info(String.format("Order event received in empresa service => %s", reservaInputDTO));
     }

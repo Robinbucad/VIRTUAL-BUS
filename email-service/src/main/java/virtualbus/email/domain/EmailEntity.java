@@ -1,4 +1,4 @@
-package virtualbus.emailservice.email.domain;
+package virtualbus.email.domain;
 
 import lombok.Data;
 

@@ -1,7 +1,7 @@
-package virtualbus.emailservice.email.infraestructure.repository;
+package virtualbus.email.infraestructure.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import virtualbus.emailservice.email.domain.EmailEntity;
+import virtualbus.email.domain.EmailEntity;
 
 import java.util.Optional;
 

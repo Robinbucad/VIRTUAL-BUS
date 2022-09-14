@@ -1,12 +1,11 @@
-package virtualbus.emailservice.email.infraestructure.controller;
+package virtualbus.email.infraestructure.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import virtualbus.emailservice.email.application.EmailService;
-import virtualbus.emailservice.email.infraestructure.controller.dto.output.EmailOutputDTO;
+import virtualbus.email.application.EmailService;
+import virtualbus.email.infraestructure.controller.dto.output.EmailOutputDTO;
 
 import java.util.List;
 
