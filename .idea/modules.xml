@@ -6,7 +6,6 @@
       <module fileurl="file://$PROJECT_DIR$/back-empresa/back-empresa.iml" filepath="$PROJECT_DIR$/back-empresa/back-empresa.iml" />
       <module fileurl="file://$PROJECT_DIR$/back-web/back-web.iml" filepath="$PROJECT_DIR$/back-web/back-web.iml" />
       <module fileurl="file://$PROJECT_DIR$/config-service/config-service.iml" filepath="$PROJECT_DIR$/config-service/config-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/email-service/email-service.iml" filepath="$PROJECT_DIR$/email-service/email-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/eureka-service/eureka-service.iml" filepath="$PROJECT_DIR$/eureka-service/eureka-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/gateway-service/gateway-service.iml" filepath="$PROJECT_DIR$/gateway-service/gateway-service.iml" />
     </modules>

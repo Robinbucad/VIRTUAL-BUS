@@ -12,7 +12,6 @@
         <module name="gateway-service" />
         <module name="back-web" />
         <module name="back-empresa" />
-        <module name="email-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

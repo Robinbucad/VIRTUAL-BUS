@@ -45,3 +45,25 @@ eureka:
 feign:
     circuitbreaker:
         enabled: true
+
+spring.mail:
+    port: 587
+    host: smtp.gmail.com
+    username: robin.bucad6@gmail.com
+    password: ${EMAIL_PASSWORD} 
+    test-connection: false
+    default-encoding: UTF-8
+    properties:
+        mail:
+            debug: false
+            smtp:
+                timeout: 5000
+                ssl:
+                    enable: false
+                socketFactory:
+                    port:
+                    class:
+                auth: true
+                starttls:
+                    enable: true
+                    required: true
