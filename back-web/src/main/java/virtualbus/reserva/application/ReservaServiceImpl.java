@@ -82,9 +82,8 @@ public class ReservaServiceImpl implements ReservaService{
 
         reservaDisponible.setNumeroPlazas(reservaDisponible.getNumeroPlazas()-1);
         bus.setPlazas(bus.getPlazas()-1);
-
         ReservaEntity reserva = new ReservaEntity(reservaInputDTO,bus);
-        reservaProducer.sendMessage(reservaInputDTO);
+        reservaProducer.sendMessage(new ReservaInputDTO(reserva));
         reserva.setStatus(ReservaStatus.ACEPTADO);
         reservasRepository.save(reserva);
         reservasDisponiblesRepository.save(reservaDisponible);
@@ -120,14 +119,13 @@ public class ReservaServiceImpl implements ReservaService{
         ReservaDisponibleEntity reservaDisponible = reservasDisponiblesRepository.findReservaDisponibleByIdBus(bus.getIdBus()).orElseThrow(
                 () -> new NotFoundException("ReservaDisponible no existente")
         );
+
         reserva.setStatus(ReservaStatus.CANCELADO);
-        reservaProducer.sendMessage(new ReservaInputDTO(reserva,bus));
         bus.setPlazas(bus.getPlazas()+1);
         reservaDisponible.setNumeroPlazas(bus.getPlazas()+1);
         reservasRepository.delete(reserva);
         reservasDisponiblesRepository.save(reservaDisponible);
-
-
+        reservaProducer.sendMessage(new ReservaInputDTO(reserva));
         return "Su reserva se ha cancelado";
     }
 

@@ -24,16 +24,16 @@ public class ReservaInputDTO {
     private String idBus;
 
 
-    public ReservaInputDTO (ReservaEntity reserva, BusEntity bus){
+    public ReservaInputDTO (ReservaEntity reserva){
         setReservaId(reserva.getReservaId());
-        setCiudadDestino(bus.getCiudadDestino());
+        setCiudadDestino(reserva.getCiudadDestino());
         setNombre(reserva.getNombre());
         setApellidos(reserva.getApellidos());
         setTelefono(reserva.getTelefono());
         setCorreoElectronico(reserva.getCorreoElectronico());
-        setFecha(bus.getFecha());
-        setHora(bus.getHora());
-        setIdBus(bus.getIdBus());
+        setFecha(reserva.getFecha());
+        setHora(reserva.getHora());
+        setIdBus(reserva.getIdBus());
         setStatus(ReservaStatus.PENDIENTE);
     }
 
