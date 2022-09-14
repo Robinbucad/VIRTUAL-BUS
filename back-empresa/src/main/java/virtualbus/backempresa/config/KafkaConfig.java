@@ -11,7 +11,8 @@ public class KafkaConfig {
 
 
     @Bean
-    public NewTopic topic(){
+    public NewTopic topicEmails(){
         return TopicBuilder.name("emails").build();
     }
+
 }

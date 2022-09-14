@@ -14,9 +14,9 @@ import java.util.List;
 @FeignClient(value = "service-reservas", url ="${FEIGN_CLIENT_URL:http://localhost:8084/api/v0}")
 public interface ReservasClient {
 
-    @PostMapping("/reservasDisponibles")
+    @PostMapping("/reservasDisponiblesWeb")
     public ResponseEntity<ReservasDisponibles> createReservaDisponible(@RequestParam(value = "id_bus") String id_bus);
 
-    @GetMapping("/reservas/{id}")
+    @GetMapping("/reservasWeb/{id}")
     List<Reserva> getReservasRealizadas(@PathVariable String id);
 }

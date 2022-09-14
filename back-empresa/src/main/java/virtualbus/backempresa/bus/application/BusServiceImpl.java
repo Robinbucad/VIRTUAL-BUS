@@ -27,6 +27,8 @@ public class BusServiceImpl implements BusService {
 
     @Autowired
     ReservasClient reservasClient;
+
+
     @Override
     public BusOutputDTO createBus(BusInputDTO bus) {
         BusEntity checkBus = busRepository.findBusByHora(bus.getHora()).orElse(null);
@@ -36,7 +38,6 @@ public class BusServiceImpl implements BusService {
 
         bus.setIdBus(UUID.randomUUID().toString());
         BusEntity newBus = new BusEntity(bus);
-
         busRepository.save(newBus);
         busClient.createBus(bus).getBody();
         reservasClient.createReservaDisponible(bus.getIdBus());

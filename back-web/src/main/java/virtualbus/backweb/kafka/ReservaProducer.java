@@ -8,23 +8,25 @@ import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
+import virtualbus.backweb.reserva.infraestructure.controller.dto.input.ReservaInputDTO;
+
 @Service
 public class ReservaProducer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ReservaProducer.class);
 
-    private KafkaTemplate<String, String> kafkaTemplate;
+    private KafkaTemplate<String, ReservaInputDTO> kafkaTemplate;
 
-    public ReservaProducer( KafkaTemplate<String, String> kafkaTemplate) {
+    public ReservaProducer( KafkaTemplate<String, ReservaInputDTO> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void sendMessageToReservas(String id_bus){
-        LOGGER.info(String.format("Reserva event => %s", id_bus));
+    public void sendMessageToReservas(ReservaInputDTO reservaInputDTO){
+        LOGGER.info(String.format("Reserva event => %s", reservaInputDTO));
 
         //Create message
-        Message<String>message = MessageBuilder
-                .withPayload(id_bus)
+        Message<ReservaInputDTO>message = MessageBuilder
+                .withPayload(reservaInputDTO)
                 .setHeader(KafkaHeaders.TOPIC, "reservas_topic")
                 .build();
         kafkaTemplate.send(message);

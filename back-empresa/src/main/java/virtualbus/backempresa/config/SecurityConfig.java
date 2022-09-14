@@ -45,12 +45,11 @@ public class SecurityConfig {
         http.authorizeRequests()
                 .antMatchers("/api/v*/login").permitAll()
                 .antMatchers("/api/v0/personas/**").permitAll()
-                .antMatchers("/api/v0/buses/**").permitAll()
+                .antMatchers("/api/v0/busesEmpresa/**").permitAll()
                 .antMatchers("/api/v0/token/**").permitAll()
-                .antMatchers("/api/v0/reservas/**").permitAll()
-                .antMatchers("/api/v0/reservas/**").permitAll()
+                .antMatchers("/api/v0/reservasEmpresa/**").permitAll()
                 .antMatchers("/api/v0/emails/**").permitAll()
-                .antMatchers("/api/v0/reservasDisponibles/**").permitAll()
+                .antMatchers("/api/v0/reservasDisponiblesEmpresa/**").permitAll()
                 .antMatchers(GET,"/api/v0/checkSecurity/**").hasAnyAuthority("USER")
                 .anyRequest().authenticated(); // TODOS TIENEN QUE ESTAR AUTENTICADOS
 

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import virtualbus.backempresa.bus.application.BusService;
 import virtualbus.backempresa.bus.domain.BusEntity;
 import virtualbus.backempresa.bus.infraestructure.repository.BusRepository;
+import virtualbus.backempresa.reserva.infraestructure.controller.dto.input.ReservaInputDTO;
 import virtualbus.backempresa.utils.exception.notFound.NotFoundException;
 import virtualbus.backempresa.utils.model.Reserva;
 
@@ -27,12 +28,13 @@ public class ReservaConsumer {
             topics = "reservas_topic",
             groupId = "emp"
     )
-    public void consume(String id_bus){
-        BusEntity bus = busRepository.findBusByIdBus(id_bus).orElseThrow(
-                ()-> new NotFoundException("Bus no existe"));
+    public void consume(ReservaInputDTO reservaInputDTO){
+        BusEntity bus = busRepository.findBusByIdBus(reservaInputDTO.getIdBus()).orElseThrow(
+                ()-> new NotFoundException("Bus no existe")
+        );
         bus.setPlazas(bus.getPlazas()-1);
         busService.checkPlazas(bus.getIdBus());
         busRepository.save(bus);
-        LOGGER.info(String.format("Order event received in empresa service => %s", id_bus));
+        LOGGER.info(String.format("Order event received in empresa service => %s", reservaInputDTO));
     }
 }
