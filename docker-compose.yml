@@ -115,6 +115,20 @@ services:
       - backweb-db:backweb-db
       - kafka:kafka
 
+  gateway-service:
+    container_name: gateway
+    build: ./back-web
+    environment:
+      CLOUD_SEA_CONFIG_SERVER_URI: http://config-service:9090
+      EUREKA_DEFAULT_ZONE_URL: http://eureka-server:9292/eureka/
+    ports:
+      - "8080:8080"
+    depends_on:
+      - config-service
+      - eureka-server
+    links:
+      - eureka-server:eureka-server
+      - kafka:kafka
 
 
 
