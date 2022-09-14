@@ -33,12 +33,11 @@ public class ReservasServiceImpl implements ReservasService{
 
         if (bus.getFecha().equals(dia) && bus.getHora() == hora && bus.getCiudadDestino().equalsIgnoreCase(destino)){
             List<ReservaOutputDTO> reservaOutputDTOS = new ArrayList<>();
-            System.out.println("HA entrado");
-            System.out.println(reservas);
-            for (ReservaEntity r: reservas){
-                ReservaOutputDTO reservaOutputDTO = new ReservaOutputDTO(r);
+
+            reservas.forEach(reservaEntity -> {
+                ReservaOutputDTO reservaOutputDTO = new ReservaOutputDTO(reservaEntity);
                 reservaOutputDTOS.add(reservaOutputDTO);
-            }
+            });
 
             return reservaOutputDTOS;
         }else {

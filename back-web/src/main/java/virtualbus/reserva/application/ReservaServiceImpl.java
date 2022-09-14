@@ -19,6 +19,7 @@ import virtualbus.reservaDIsponible.infraestructure.repository.ReservasDisponibl
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ReservaServiceImpl implements ReservaService{
@@ -49,11 +50,14 @@ public class ReservaServiceImpl implements ReservaService{
             List<ReservaEntity> reservaEntities = reservasRepository.findAll();
             List<ReservaOutputDTO> reservasDTO = new ArrayList<>();
 
-            for (ReservaEntity r:reservaEntities){
-                ReservaOutputDTO reservaOutputDTO = new ReservaOutputDTO(r);
-                reservasDTO.add(reservaOutputDTO);
-            }
+            reservaEntities.forEach( reservaEntity -> {
+                        ReservaOutputDTO reservaOutputDTO = new ReservaOutputDTO(reservaEntity);
+                        reservasDTO.add(reservaOutputDTO);
+                    }
+            );
+
             return reservasDTO;
+
         }
         else {
             throw new NotFoundException("Token inválido");
@@ -95,15 +99,14 @@ public class ReservaServiceImpl implements ReservaService{
         BusEntity bus = busRepository.findById(id_bus).orElseThrow(
                 ()-> new NotFoundException("Bus no existe")
         );
-        System.out.println(bus);
         List<ReservaEntity> reserva = reservasRepository.findByIdBus(bus.getIdBus());
-        System.out.println(reserva);
         List<ReservaOutputDTO> reservaOutputDTOS = new ArrayList<>();
 
-        for (ReservaEntity r: reserva){
-            ReservaOutputDTO reservaOutputDTO = new ReservaOutputDTO(r,bus);
-            reservaOutputDTOS.add(reservaOutputDTO);
-        }
+        reserva.forEach( reservaEntity -> {
+                ReservaOutputDTO reservaOutputDTO = new ReservaOutputDTO(reservaEntity,bus);
+                reservaOutputDTOS.add(reservaOutputDTO);
+        });
+
 
         return reservaOutputDTOS;
     }

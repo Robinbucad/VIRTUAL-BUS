@@ -74,10 +74,12 @@ public class BusServiceImpl implements BusService {
     public List<BusOutputDTO> getBuses() {
         List<BusEntity> busEntities = busRepository.findAll();
         List<BusOutputDTO> busOutputDTOS = new ArrayList<>();
-        for (BusEntity b:busEntities){
-            BusOutputDTO busDTO = new BusOutputDTO(b);
+
+        busEntities.forEach(busEntity -> {
+            BusOutputDTO busDTO = new BusOutputDTO(busEntity);
             busOutputDTOS.add(busDTO);
-        }
+        });
+
         return busOutputDTOS;
     }
 }
