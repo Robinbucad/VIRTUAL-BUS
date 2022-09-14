@@ -21,7 +21,7 @@ public class ReservaProducer {
     }
 
     public void sendMessage(ReservaInputDTO reservaInputDTO){
-        LOGGER.info(String.format("Reserva event => %s", reservaInputDTO));
+        LOGGER.info(String.format("Reserva event => %s", reservaInputDTO.toString()));
 
         //Create message
         Message<ReservaInputDTO>message = MessageBuilder
