@@ -17,7 +17,7 @@ spring:
         - id: BACKEMPRESA-SERVICE
           uri: lb://BACKEMPRESA-SERVICE
           predicates:
-            - Path=/api/v0/busesEmpresa/** , /api/v0/checkSecurity/** , /api/v0/personas/**
+            - Path=/api/v0/busesEmpresa/** , /api/v0/checkSecurity/** , /api/v0/personas/** , /api/v0/login/**
         - id: BACKWEB-SERVICE
           uri: lb://BACKWEB-SERVICE
           predicates:
