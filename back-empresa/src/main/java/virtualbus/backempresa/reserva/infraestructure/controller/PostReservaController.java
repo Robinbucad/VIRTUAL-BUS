@@ -1,15 +1,13 @@
-package virtualbus.backweb.reserva.infraestructure.controller;
+package virtualbus.backempresa.reserva.infraestructure.controller;
 
-import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import virtualbus.backweb.reserva.application.ReservaService;
-import virtualbus.backweb.reserva.infraestructure.controller.dto.input.ReservaInputDTO;
-import virtualbus.backweb.reserva.infraestructure.controller.dto.output.ReservaOutputDTO;
+import virtualbus.backempresa.reserva.application.ReservaService;
+import virtualbus.backempresa.reserva.infraestructure.controller.dto.input.ReservaInputDTO;
 
 @RestController
-@RequestMapping("/api/v0/reservasWeb")
+@RequestMapping("/api/v0/reservasEmpresa")
 public class PostReservaController {
 
     @Autowired

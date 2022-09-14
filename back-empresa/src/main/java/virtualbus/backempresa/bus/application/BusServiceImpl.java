@@ -6,6 +6,7 @@ import virtualbus.backempresa.bus.domain.BusEntity;
 import virtualbus.backempresa.bus.infraestructure.controller.dto.input.BusInputDTO;
 import virtualbus.backempresa.bus.infraestructure.controller.dto.output.BusOutputDTO;
 import virtualbus.backempresa.bus.infraestructure.repository.BusRepository;
+import virtualbus.backempresa.utils.exception.notFound.NotFoundException;
 import virtualbus.backempresa.utils.exception.unprocessable.UnprocessableException;
 import virtualbus.backempresa.utils.client.BusClient;
 import virtualbus.backempresa.utils.client.ReservasClient;
@@ -44,13 +45,16 @@ public class BusServiceImpl implements BusService {
 
     @Override
     public BusOutputDTO getBusById(String id) {
-        BusEntity bus = busRepository.findBusByIdBus(id);
+        BusEntity bus = busRepository.findBusByIdBus(id).orElseThrow(
+                ()-> new NotFoundException("Bus no existe")
+        );
         return new BusOutputDTO(bus);
     }
 
     @Override
     public String checkPlazas(String id) {
-        BusEntity bus = busRepository.findBusByIdBus(id);
+        BusEntity bus = busRepository.findBusByIdBus(id).orElseThrow(
+                ()-> new NotFoundException("Bus no existe"));
         if (bus.getPlazas()==0){
             throw new UnprocessableException("Bus lleno");
         }

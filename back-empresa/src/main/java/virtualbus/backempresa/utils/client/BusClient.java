@@ -10,7 +10,7 @@ import virtualbus.backempresa.bus.infraestructure.controller.dto.output.BusOutpu
 @FeignClient(value = "service-bus", url ="${FEIGN_CLIENT_URL:http://localhost:8084/api/v0}")
 public interface BusClient {
 
-    @PostMapping("/buses")
+    @PostMapping("/busesWeb")
     public ResponseEntity<BusOutputDTO> createBus(@RequestBody BusInputDTO busInputDTO);
 
 }

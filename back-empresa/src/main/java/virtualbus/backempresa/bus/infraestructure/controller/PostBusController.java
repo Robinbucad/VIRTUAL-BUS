@@ -12,7 +12,7 @@ import virtualbus.backempresa.bus.infraestructure.controller.dto.output.BusOutpu
 
 
 @RestController
-@RequestMapping("api/v0/buses")
+@RequestMapping("api/v0/busesEmpresa")
 public class PostBusController {
 
     @Autowired

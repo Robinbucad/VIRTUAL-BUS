@@ -1,4 +1,4 @@
-package virtualbus.backweb.reservaDIsponible.infraestructure.controller;
+package virtualbus.backempresa.reservaDIsponible.infraestructure.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import virtualbus.backweb.reservaDIsponible.application.ReservaDisponibleService;
+import virtualbus.backempresa.reservaDIsponible.application.ReservaDisponibleService;
 
 @RestController
-@RequestMapping("/api/v0/reservasDisponiblesWeb/plazas")
+@RequestMapping("/api/v0/reservasDisponiblesEmpresa/plazas")
 public class GetReservasdisponibles {
 
     @Autowired

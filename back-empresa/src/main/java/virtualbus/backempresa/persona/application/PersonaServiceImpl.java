@@ -30,7 +30,7 @@ public class PersonaServiceImpl implements PersonaService, UserDetailsService {
 
     @Override
     public PersonaOutputDTO createPersona(PersonaInputDTO personaInputDTO) {
-        PersonaEntity checkPersona = personaRepository.findByEmail(personaInputDTO.getEmail()).orElse(null);
+        PersonaEntity checkPersona = personaRepository.findByUsername(personaInputDTO.getUsername()).orElse(null);
         if (checkPersona != null) throw new UnprocessableException("Esta persona ya esta registrada");
 
         PersonaEntity persona = new PersonaEntity(personaInputDTO);

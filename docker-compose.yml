@@ -133,7 +133,7 @@ services:
       EUREKA_DEFAULT_ZONE_URL: http://eureka-server:9292/eureka/
       DATABASE_URL: jdbc:postgresql://email-db:5444/emails
       KAFKA_CONSUMER_URL: http://kafka:29092
-      EMAIL_PASSWORD: 
+      EMAIL_PASSWORD: fpqijabtnfympxod
     ports:
       - "8081:8081"
     depends_on:

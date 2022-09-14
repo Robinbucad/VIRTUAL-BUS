@@ -10,7 +10,7 @@ import virtualbus.backweb.bus.application.BusService;
 import virtualbus.backweb.bus.infraestructure.controller.dto.output.BusOutputDTO;
 
 @RestController
-@RequestMapping("api/v0/buses")
+@RequestMapping("api/v0/busesWeb")
 public class GetBusController {
 
     @Autowired

@@ -7,6 +7,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BusRepository extends JpaRepository<BusEntity,String> {
-     BusEntity findBusByIdBus(String idBus);
+     Optional<BusEntity> findBusByIdBus(String idBus);
     Optional<BusEntity> findBusByHora(int hora);
 }
